@@ -5,8 +5,6 @@ import './App.css';
 import AppInterface from './AppInterface';
 
 function App() {
-  const [ text, setText ] = useState('bottom text');
-
   return (
     <div className="App">
       <header className="App-header">
@@ -14,7 +12,7 @@ function App() {
         <p>
           Hello! This is only a basic example.
         </p>
-        <AppInterface text={text} />
+        <AppInterface/>
       </header>
     </div>
   );

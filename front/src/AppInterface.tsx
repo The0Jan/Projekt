@@ -1,26 +1,33 @@
-import React, { FunctionComponent, useState } from 'react';
-import { LoadFromDB, SaveToDB } from './DBFun';
+import React, { FunctionComponent, useState, useEffect } from 'react';
+import { FetchAPI } from './DBFun';
 
-type AppInterfaceProps = {
-    text: string;
-};
+type AppInterfaceProps = {};
 
-export const AppInterface: FunctionComponent<AppInterfaceProps> = ({text}) => {
-	const [dbData, setDBData] = useState(["a", "a", "a"]);
+export const AppInterface: FunctionComponent<AppInterfaceProps> = () => {
+	const [dbData, setDBData] = useState(["No userinos yet"]);
 	const [input, setDBInput] = useState("");
 
 	const onClickLoad = () => {
-		LoadFromDB().then((data: string[]) => {
-			setDBData(data);
+		FetchAPI("http://127.0.0.1:8000/")
+		.then((data: any) => {
+			setDBData(data.map((i: any) => i.id));
+		},
+		(error) => {
+			console.log(error);
 		});
 	};
 
 	const onClickSave = () => {
-		SaveToDB(input).then((ret: string) => {
-			alert(ret);
+		FetchAPI("http://127.0.0.1:8000/user/")
+		.then((data: any) => {
+			//do nothing
+		},
+		(error) => {
+			console.log(error);
 		});
-		//onClickLoad();
 	};
+
+	useEffect(() => onClickLoad(), []);
 
 	let loadButton = (
 		<button onClick={onClickLoad}>
@@ -35,7 +42,7 @@ export const AppInterface: FunctionComponent<AppInterfaceProps> = ({text}) => {
 	);
 
 	let saveButton = (
-		<button onClick={() => onClickSave()}>
+		<button onClick={onClickSave}>
 			Save
 		</button>
 	);
@@ -46,7 +53,7 @@ export const AppInterface: FunctionComponent<AppInterfaceProps> = ({text}) => {
 		{saveForm}
 		{saveButton}
 		<br/>
-		{dbData}
+		{dbData.map(d => d + " ")}
 	</>;
 }
 

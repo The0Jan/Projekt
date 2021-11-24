@@ -1,9 +1,3 @@
-
-
-export const LoadFromDB = async () => {
-	return ["b", "b", "b"];
-};
-
-export const SaveToDB = async (name: string) => {
-	return name;
+export const FetchAPI = async (address: string) => {
+	return fetch(address).then(res => res.json());
 };
