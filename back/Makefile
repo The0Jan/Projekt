@@ -2,7 +2,7 @@ build: test setup
 	echo "noop"
 
 test: setup
-	pytest
+	python3 -m pytest
 
 setup:
 	python3 -m venv .venv
