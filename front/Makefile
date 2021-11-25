@@ -1,4 +1,4 @@
-build: test setup
+build: test
 	npm run build
 
 test: setup

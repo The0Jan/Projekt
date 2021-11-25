@@ -1,4 +1,4 @@
-build: test setup
+build: test
 	echo "noop"
 
 test: setup
